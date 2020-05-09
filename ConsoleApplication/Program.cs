@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyCaching.InMemory;
 using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApplication
@@ -12,7 +13,17 @@ namespace ConsoleApplication
 
 			UseConfiguration();
 
+			UseEasyCaching();
+
 			Console.ReadLine();
+		}
+
+		private static void UseEasyCaching()
+		{
+			var options = new InMemoryCachingOptions();
+			var caching = new InMemoryCaching("Test", options);
+			caching.Add("aaa", "bbb");
+			Console.WriteLine(caching.Get("aaa"));
 		}
 
 		private static void UseConfiguration()
